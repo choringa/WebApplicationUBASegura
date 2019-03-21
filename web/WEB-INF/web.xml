@@ -4,9 +4,17 @@
         <servlet-name>Users</servlet-name>
         <servlet-class>WS.Usuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Saldo</servlet-name>
+        <servlet-class>WS.Saldo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Users</servlet-name>
-        <url-pattern>/webresources/ws.usuarios</url-pattern>
+        <url-pattern>/seguraWS/ws.usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Saldo</servlet-name>
+        <url-pattern>/seguraWS/ws.saldo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -16,38 +24,59 @@
     <security-constraint>
         <display-name>ConstraintUsuarios</display-name>
         <web-resource-collection>
-            <web-resource-name>users</web-resource-name>
-            <description>users constraints</description>
-            <url-pattern>/webresources/ws.usuarios/</url-pattern>
+            <web-resource-name>UsuariosGetConstraint</web-resource-name>
+            <description>Constraint para la función GET del servicio todos usuarios</description>
+            <url-pattern>/seguraWS/ws.usuarios/</url-pattern>
             <http-method>GET</http-method>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
+            <role-name>administrador</role-name>
+            <role-name>usuario</role-name>
         </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>ConstraintsGetUserID</display-name>
         <web-resource-collection>
             <web-resource-name>usersById</web-resource-name>
-            <description/>
-            <url-pattern>/webresources/ws.usuarios/*</url-pattern>
+            <description>Constraint para la función GET del servicio usuarios por id especifico</description>
+            <url-pattern>/seguraWS/ws.usuarios/*</url-pattern>
+            <http-method>GET</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description/>
-            <role-name>admin</role-name>
-            <role-name>users</role-name>
+            <role-name>administrador</role-name>
+            <role-name>usuario</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>ConstraintsPostSaldo</display-name>
+        <web-resource-collection>
+            <web-resource-name>saldosPost</web-resource-name>
+            <description>Constraint para la función POST del servicio saldos</description>
+            <url-pattern>/seguraWS/ws.saldo/*</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>administrador</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>file</realm-name>
     </login-config>
     <security-role>
-        <description>Administrador del sistema</description>
-        <role-name>admin</role-name>
+        <description>Los usuarios que van hacer uso de los WS</description>
+        <role-name>usuario</role-name>
     </security-role>
     <security-role>
-        <description>Los usuarios que van hacer uso de los WS</description>
-        <role-name>users</role-name>
+        <description>el admin</description>
+        <role-name>administrador</role-name>
     </security-role>
 </web-app>

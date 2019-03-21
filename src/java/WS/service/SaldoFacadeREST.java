@@ -40,12 +40,14 @@ public class SaldoFacadeREST extends AbstractFacade<Saldo> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Saldo entity) {
         super.create(entity);
+        System.out.println("nuevo saldo: " + String.valueOf(super.count()));
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Saldo entity) {
+        System.out.println("Tried to put: " + entity.toString());
         super.edit(entity);
     }
 
@@ -59,6 +61,7 @@ public class SaldoFacadeREST extends AbstractFacade<Saldo> {
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Saldo find(@PathParam("id") Integer id) {
+        System.out.println("get by id saldo");
         return super.find(id);
     }
 
