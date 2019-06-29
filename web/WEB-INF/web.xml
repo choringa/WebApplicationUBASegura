@@ -35,6 +35,19 @@
         </auth-constraint>
     </security-constraint>
     <security-constraint>
+        <display-name>ConstraintUsuarios</display-name>
+        <web-resource-collection>
+            <web-resource-name>UsuariosGetConstraint</web-resource-name>
+            <description>Constraint para la función GET del servicio todos usuarios</description>
+            <url-pattern>/seguraWS/ws.usuarios/verificarHmac</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrador</role-name>
+            <role-name>usuario</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
         <display-name>ConstraintsGetUserID</display-name>
         <web-resource-collection>
             <web-resource-name>usersById</web-resource-name>
